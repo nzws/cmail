@@ -1,0 +1,9 @@
+.image {
+  display: block;
+  object-fit: cover;
+  width: 260px;
+  height: 260px;
+  max-width: 100%;
+  max-height: 100%;
+  filter: brightness(0.5);
+}

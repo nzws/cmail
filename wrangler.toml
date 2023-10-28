@@ -1,0 +1,21 @@
+name = "cmail"
+main = "workers/index.ts"
+compatibility_date = "2023-10-28"
+node_compat = true
+minify = true
+
+[[d1_databases]]
+binding = "DATABASE"
+database_name = "cmail"
+database_id = "51df7813-6009-4ddc-b52a-46cbb755bddd" # Replace your own database ID here
+
+[[r2_buckets]]
+binding = 'BUCKET'
+bucket_name = 'cmail'
+
+[[kv_namespaces]]
+binding = "KV"
+id = "8032b408db7d4424be0e79feb1ab2f44" # Replace your own KV ID here
+
+[triggers]
+crons = ["0 0 * * *"]

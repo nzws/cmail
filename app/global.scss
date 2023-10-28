@@ -1,0 +1,22 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+*, *:after, *:before {
+  box-sizing: border-box !important;
+}
+
+.react-loading-skeleton {
+  --base-color: var(--gray-6);
+  --highlight-color: var(--gray-1);
+}
+
+.truncated {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

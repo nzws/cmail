@@ -1,0 +1,22 @@
+.container {
+  display: grid;
+  grid-template-areas: "header header header"
+                        "folders mails content";
+  gap: var(--space-4);
+  padding: var(--space-4);
+  grid-template-columns: 200px 300px 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  background-color: var(--accent-12);
+  overflow: hidden;
+}
+
+.header_container {
+  grid-area: header;
+}
+
+.folders_container {
+  grid-area: folders;
+}
