@@ -23,6 +23,8 @@ export const meta: MetaFunction = () => {
   return [{ title: "CMail" }];
 };
 
+export { ErrorBoundary } from "./components/error-boundary";
+
 export default function App() {
   return (
     <html>

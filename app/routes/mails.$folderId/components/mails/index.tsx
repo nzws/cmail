@@ -1,15 +1,25 @@
-import { Box, Button, Flex, Heading, Text } from "@radix-ui/themes";
+import {
+  Box,
+  Button,
+  CalloutRoot,
+  CalloutText,
+  Flex,
+  Heading,
+  Text,
+} from "@radix-ui/themes";
+import { SerializeFrom } from "@remix-run/cloudflare";
 import { Link, useParams } from "@remix-run/react";
+import { formatDistanceToNow } from "date-fns";
 import { Fragment } from "react";
 import Skeleton from "react-loading-skeleton";
 
-import type { Folder, Mail } from "@/lib/schema";
+import { type Folder, type Mail, SystemFolderType } from "@/lib/schema";
 
 import styles from "./styles.module.css";
 
 interface Props {
-  mails?: Mail[];
-  folder?: Folder;
+  mails?: SerializeFrom<Mail>[];
+  folder?: SerializeFrom<Folder>;
 }
 
 export function MailsPresentational({ mails, folder }: Props) {
@@ -25,6 +35,15 @@ export function MailsPresentational({ mails, folder }: Props) {
           <Skeleton height="26px" />
         )}
       </Box>
+
+      {(folder?.system === SystemFolderType.Spam ||
+        folder?.system === SystemFolderType.Trash) && (
+        <CalloutRoot>
+          <CalloutText>
+            Emails in this folder will be deleted after 30 days.
+          </CalloutText>
+        </CalloutRoot>
+      )}
 
       {mails?.map((mail) => (
         <Button
@@ -42,7 +61,11 @@ export function MailsPresentational({ mails, folder }: Props) {
                 <Text className="truncated" size="2">
                   {mail.from} {/* todo: 仮 */}
                 </Text>
-                <Text size="2">3 minutes ago</Text>
+                <Text size="2">
+                  {formatDistanceToNow(new Date(mail.createdAt), {
+                    addSuffix: true,
+                  })}
+                </Text>
               </Flex>
               <Heading size="3" className="truncated">
                 {mail.subject ?? "No subject"}

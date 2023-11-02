@@ -8,6 +8,8 @@ import { getDB, getFolder, getMails } from "@/lib/db";
 import { MailsPresentational } from "./components/mails";
 import styles from "./styles.module.css";
 
+export { ErrorBoundary } from "../../components/error-boundary";
+
 export async function loader({ params, context }: LoaderFunctionArgs) {
   const db = getDB(context.env);
   const folderId = params.folderId;

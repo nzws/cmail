@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Button } from "@radix-ui/themes";
+import { SerializeFrom } from "@remix-run/cloudflare";
 import { Link, useParams } from "@remix-run/react";
 import {
   ArchiveXIcon,
@@ -18,7 +19,7 @@ import type { Folder, SystemFolderType } from "@/lib/schema";
 import styles from "./styles.module.css";
 
 interface Props {
-  folders?: Folder[];
+  folders?: SerializeFrom<Folder>[];
 }
 
 const systemFolderIcon: { [key in SystemFolderType]: ReactElement } = {
@@ -51,6 +52,7 @@ export function Folders({ folders }: Props) {
                 : "ghost"
             }
             size="3"
+            radius="full"
             className={styles.folder_button}
             key={folder.id}
             asChild

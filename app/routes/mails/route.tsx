@@ -8,6 +8,8 @@ import { Folders } from "./components/folders";
 import { Header } from "./components/header";
 import styles from "./styles.module.css";
 
+export { ErrorBoundary } from "../../components/error-boundary";
+
 export async function loader({ context }: LoaderFunctionArgs) {
   const db = getDB(context.env);
   const folders = await getFolders(db);

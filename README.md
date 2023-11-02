@@ -28,8 +28,7 @@ Super (experimental) simple email service using Cloudflare products.
 - Cloudflare R2 - Object storage, stores email attachments
 - Cloudflare KV - Stores caches
 - Cloudflare Access - Authenticate users with IdP
-- Next.js
-  - [next-on-pages](https://github.com/cloudflare/next-on-pages)
+- Remix
 - Drizzle ORM
 - Radix UI / Themes
 

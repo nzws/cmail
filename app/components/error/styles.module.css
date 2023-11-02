@@ -1,0 +1,16 @@
+.image {
+  display: block;
+  object-fit: cover;
+  width: 260px;
+  height: 260px;
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 0.5;
+}
+
+.message {
+  color: var(--accent-4);
+  background-color: var(--accent-12);
+  padding: var(--space-4);
+  border-radius: var(--radius-2);
+}

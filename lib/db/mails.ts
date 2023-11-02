@@ -19,3 +19,12 @@ export const getMail = async (db: Database, id: string) => {
     },
   });
 };
+
+export const moveMail = async (db: Database, id: string, folderId: string) => {
+  await db
+    .update(mail)
+    .set({
+      folderId,
+    })
+    .where(eq(mail.id, id));
+};
