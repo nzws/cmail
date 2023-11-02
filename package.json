@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "yarn migration:dev && yarn pages:build && concurrently 'yarn workers:dev' 'yarn pages:dev'",
-    "lint": "next lint && tsc --noEmit",
+    "lint": "eslint --cache '**/*.{ts,tsx}' && tsc --noEmit",
     "format": "prettier --write --cache . && eslint --fix --cache .",
     "deploy": "yarn migration:prod && yarn workers:deploy && yarn pages:deploy",
     "migration:create": "drizzle-kit generate:sqlite --out migrations --schema lib/schema.ts",
