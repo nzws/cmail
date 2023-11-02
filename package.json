@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20231025.0",
+    "@faker-js/faker": "8.2.0",
     "@remix-run/dev": "2.1.0",
     "@remix-run/eslint-config": "2.1.0",
     "@tsconfig/node20": "20.1.2",

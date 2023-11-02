@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { readdir } from "fs/promises";
@@ -33,14 +34,22 @@ const main = async (id: string, isHtml = false) => {
 
   const inbox = await getSystemFolder(db, SystemFolderType.Inbox);
 
+  const from = faker.internet.email({ provider: "example.nzws.me" });
+  const to = "i@nzws.me";
+
   await db.insert(mail).values({
     id,
-    from: "i@nzws.me",
-    to: "test@nzws.me",
-    subject: "Hello",
-    content: isHtml ? "<h1>Hello World</h1>" : "Hello World",
+    from,
+    to,
+    subject: faker.lorem.text(),
+    content: isHtml
+      ? `<h1>${faker.lorem.text()}</h1><p>${faker.lorem.paragraphs(
+          { min: 2, max: 10 },
+          "<br/>",
+        )}</p>`
+      : faker.lorem.paragraphs({ min: 2, max: 10 }),
     isHtml,
-    messageId: "message-id",
+    messageId: id,
     headers: {},
     folderId: inbox.id,
   });
@@ -49,13 +58,13 @@ const main = async (id: string, isHtml = false) => {
     {
       mailId: id,
       type: EnvelopeType.From,
-      address: "i@nzws.me",
-      name: "nzws (sender)",
+      address: from,
+      name: faker.person.fullName(),
     },
     {
       mailId: id,
       type: EnvelopeType.To,
-      address: "test@nzws.me",
+      address: to,
       name: "nzws",
     },
   ]);

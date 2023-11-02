@@ -61,10 +61,8 @@ export function MailsPresentational({ mails, folder }: Props) {
                 <Text className="truncated" size="2">
                   {mail.from} {/* todo: 仮 */}
                 </Text>
-                <Text size="2">
-                  {formatDistanceToNow(new Date(mail.createdAt), {
-                    addSuffix: true,
-                  })}
+                <Text size="2" className={styles.mail_created_at}>
+                  {formatDistanceToNow(new Date(mail.createdAt))}
                 </Text>
               </Flex>
               <Heading size="3" className="truncated">
