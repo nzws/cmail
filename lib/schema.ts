@@ -17,7 +17,6 @@ export const mail = sqliteTable(
     updatedAt: integer("updated_at", { mode: "timestamp" })
       .notNull()
       .default(sql`(strftime('%s', 'now'))`),
-    // from はそれ専用のスキーマがあったほうが良さそう
     from: text("from").notNull(),
     to: text("to").notNull(),
     subject: text("subject"),
