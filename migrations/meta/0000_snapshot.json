@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "067d5a2a-8c1c-43ba-bd7d-b50561f2e962",
+  "id": "94a6822c-c58b-47e4-b1cf-573ffc4238c7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "folder": {
@@ -20,7 +20,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(strftime('%s', 'now'))"
         },
         "name": {
           "name": "name",
@@ -66,7 +66,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(strftime('%s', 'now'))"
         },
         "folder_id": {
           "name": "folder_id",
@@ -118,7 +118,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(strftime('%s', 'now'))"
         },
         "updated_at": {
           "name": "updated_at",
@@ -126,7 +126,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(strftime('%s', 'now'))"
         },
         "from": {
           "name": "from",

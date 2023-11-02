@@ -13,10 +13,10 @@ export const mail = sqliteTable(
     id: text("id").primaryKey().notNull(),
     createdAt: integer("created_at", { mode: "timestamp" })
       .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
+      .default(sql`(strftime('%s', 'now'))`),
     updatedAt: integer("updated_at", { mode: "timestamp" })
       .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
+      .default(sql`(strftime('%s', 'now'))`),
     from: text("from").notNull(),
     to: text("to").notNull(),
     subject: text("subject"),
@@ -98,7 +98,7 @@ export const folder = sqliteTable("folder", {
   id: text("id").primaryKey().notNull(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
+    .default(sql`(strftime('%s', 'now'))`),
   name: text("name").notNull(),
   system: text("system").$type<SystemFolderType>().unique(),
 });
@@ -109,7 +109,7 @@ export const folderRule = sqliteTable("folder_rule", {
   id: text("id").primaryKey().notNull(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
+    .default(sql`(strftime('%s', 'now'))`),
   folderId: text("folder_id")
     .references(() => folder.id)
     .notNull(),

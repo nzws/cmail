@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow: hidden;
+  overflow-y: auto;
+  height: 100%;
+  padding: var(--space-3) 0;
+  margin-right: calc(var(--space-4) * -1);
+}
+
+.compose_button {
+  margin: 0 var(--space-3);
+  box-shadow: var(--shadow-6);
+}
+
+.folders {
+  display: flex;
+  flex-direction: column;
+}
+
+.folder_button {
+  width: 100%;
+  padding: var(--space-1) var(--space-3);
+  margin: 0;
+  justify-content: start;
+  gap: var(--space-2);
+  color: var(--tomato-1);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  height: var(--base-button-height);
+}
+
+.folder_button.rt-variant-solid {
+  box-shadow: var(--shadow-6);
+}

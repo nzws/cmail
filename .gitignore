@@ -180,3 +180,11 @@ yarn-error.log*
 next-env.d.ts
 
 .wrangler
+
+/.cache
+/functions/\[\[path\]\].js
+/functions/\[\[path\]\].js.map
+/functions/metafile.*
+/functions/version.txt
+/public/build
+.dev.vars
