@@ -7,7 +7,7 @@ minify = true
 [[d1_databases]]
 binding = "DATABASE"
 database_name = "cmail"
-database_id = "51df7813-6009-4ddc-b52a-46cbb755bddd" # Replace your own database ID here
+database_id = "700655c0-6dcd-4f4d-badf-4f2de0d3179c" # Replace your own database ID here
 
 [[r2_buckets]]
 binding = 'BUCKET'

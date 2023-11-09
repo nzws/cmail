@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "94a6822c-c58b-47e4-b1cf-573ffc4238c7",
+  "id": "a813f00d-9173-44be-9ab1-510315f92542",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "folder": {
@@ -165,13 +165,6 @@
         },
         "folder_id": {
           "name": "folder_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "message_id": {
-          "name": "message_id",
           "type": "text",
           "primaryKey": false,
           "notNull": true,

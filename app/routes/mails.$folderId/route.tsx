@@ -3,6 +3,7 @@ import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
 
+import { authorizationMiddleware } from "@/app/middleware/authorization.server";
 import { getDB, getFolder, getMails } from "@/lib/db";
 
 import { MailsPresentational } from "./components/mails";
@@ -10,7 +11,9 @@ import styles from "./styles.module.css";
 
 export { ErrorBoundary } from "../../components/error-boundary";
 
-export async function loader({ params, context }: LoaderFunctionArgs) {
+export async function loader({ params, context, request }: LoaderFunctionArgs) {
+  await authorizationMiddleware(request, context.env);
+
   const db = getDB(context.env);
   const folderId = params.folderId;
   if (!folderId) {

@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Text } from "@radix-ui/themes";
+import { Flex, Heading, IconButton, Text, Tooltip } from "@radix-ui/themes";
 import { Form } from "@remix-run/react";
 import {
   ArrowRightIcon,
@@ -22,32 +22,34 @@ interface Props {
 
 export function Header({ sender, date, subject, from, to }: Props) {
   return (
-    <Flex direction="column" width="100%" gap="1" className={styles.container}>
+    <Flex direction="column" width="100%" gap="2" className={styles.container}>
       <Flex justify="between" align="center">
         <Flex align="center" gap="5">
-          <Button variant="ghost" size="4">
+          <IconButton variant="ghost" size="4">
             <ReplyIcon size="24px" />
-          </Button>
+          </IconButton>
 
-          <Button variant="ghost" size="4">
+          <IconButton variant="ghost" size="4">
             <ReplyAllIcon size="24px" />
-          </Button>
+          </IconButton>
 
-          <Button variant="ghost" size="4">
+          <IconButton variant="ghost" size="4">
             <ForwardIcon size="24px" />
-          </Button>
+          </IconButton>
         </Flex>
 
         <Flex align="center" gap="5">
-          <Button variant="ghost" size="4">
+          <IconButton variant="ghost" size="4">
             <FolderIcon size="24px" />
-          </Button>
+          </IconButton>
 
           <Form replace method="post">
             <input type="hidden" name="action" value="delete" />
-            <Button variant="ghost" size="4" type="submit">
-              <Trash2Icon size="24px" />
-            </Button>
+            <Tooltip content="Move to trash" delayDuration={0} side="bottom">
+              <IconButton variant="ghost" size="4" type="submit">
+                <Trash2Icon size="24px" />
+              </IconButton>
+            </Tooltip>
           </Form>
         </Flex>
       </Flex>

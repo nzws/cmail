@@ -9,9 +9,11 @@ export const deleteMails = async (
   db: Database,
   ids: string[],
 ) => {
-  await db.delete(mailEnvelope).where(inArray(mailEnvelope.mailId, ids));
-  await db.delete(mailAttachment).where(inArray(mailAttachment.mailId, ids));
-  await db.delete(mail).where(inArray(mail.id, ids));
+  await db.batch([
+    db.delete(mailEnvelope).where(inArray(mailEnvelope.mailId, ids)),
+    db.delete(mailAttachment).where(inArray(mailAttachment.mailId, ids)),
+    db.delete(mail).where(inArray(mail.id, ids)),
+  ]);
 
   await Promise.all(
     ids.map(async (id) => {

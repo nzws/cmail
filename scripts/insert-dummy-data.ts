@@ -49,7 +49,6 @@ const main = async (id: string, isHtml = false) => {
         )}</p>`
       : faker.lorem.paragraphs({ min: 2, max: 10 }),
     isHtml,
-    messageId: id,
     headers: {},
     folderId: inbox.id,
   });

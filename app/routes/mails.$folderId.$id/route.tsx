@@ -8,6 +8,7 @@ import {
 import { useLoaderData } from "@remix-run/react";
 import { Fragment } from "react";
 
+import { authorizationMiddleware } from "@/app/middleware/authorization.server";
 import { getDB, getMail, getSystemFolder, moveMail } from "@/lib/db";
 import { EnvelopeType, SystemFolderType } from "@/lib/schema";
 
@@ -17,7 +18,9 @@ import styles from "./styles.module.css";
 
 export { ErrorBoundary } from "../../components/error-boundary";
 
-export async function loader({ params, context }: LoaderFunctionArgs) {
+export async function loader({ params, context, request }: LoaderFunctionArgs) {
+  await authorizationMiddleware(request, context.env);
+
   const db = getDB(context.env);
   const id = params.id;
   if (!id) {
@@ -28,11 +31,19 @@ export async function loader({ params, context }: LoaderFunctionArgs) {
   }
 
   const mail = await getMail(db, id);
+  if (!mail) {
+    throw new Response(null, {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
 
   return json(mail);
 }
 
 export async function action({ request, params, context }: ActionFunctionArgs) {
+  await authorizationMiddleware(request, context.env);
+
   const id = params.id;
   if (!id) {
     throw new Response(null, {

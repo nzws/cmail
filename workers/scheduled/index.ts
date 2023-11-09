@@ -1,13 +1,15 @@
 import { getDB } from "@/lib/db";
+import { Env } from "@/remix.env";
 
 import {
   deleteSpamMails,
   deleteTrashMails,
 } from "./actions/delete-outdated-mails";
 
-export const scheduled: ExportedHandlerScheduledHandler<
-  NodeJS.ProcessEnv
-> = async (event, env) => {
+export const scheduled: ExportedHandlerScheduledHandler<Env> = async (
+  event,
+  env,
+) => {
   const db = getDB(env);
 
   switch (event.cron) {

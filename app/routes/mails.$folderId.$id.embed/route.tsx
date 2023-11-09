@@ -1,8 +1,11 @@
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 
+import { authorizationMiddleware } from "@/app/middleware/authorization.server";
 import { getDB, getMail } from "@/lib/db";
 
 export async function loader({ params, context, request }: LoaderFunctionArgs) {
+  await authorizationMiddleware(request, context.env);
+
   const { searchParams } = new URL(request.url);
   const id = params.id;
   if (!id) {
@@ -37,7 +40,9 @@ export async function loader({ params, context, request }: LoaderFunctionArgs) {
     </style>
   </head>
   <body>
+  <!--email_off-->
   ${mail.content}
+  <!--/email_off-->
   </body>
   </html>`,
     {

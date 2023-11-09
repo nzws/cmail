@@ -3,7 +3,8 @@ html, body {
   width: 100%;
   margin: 0 !important;
   padding: 0 !important;
-  background-color: var(--accent-12);
+  background-color: var(--orange-12) !important;
+  min-height: 100dvh;
 }
 
 

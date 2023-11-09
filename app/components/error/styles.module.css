@@ -10,7 +10,4 @@
 
 .message {
   color: var(--accent-4);
-  background-color: var(--accent-12);
-  padding: var(--space-4);
-  border-radius: var(--radius-2);
 }

@@ -28,3 +28,7 @@
 .mail_created_at {
   flex-shrink: 0;
 }
+
+.callout {
+  border-radius: 0;
+}

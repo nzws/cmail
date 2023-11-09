@@ -2,6 +2,7 @@ import { Grid } from "@radix-ui/themes";
 import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Outlet, useLoaderData } from "@remix-run/react";
 
+import { authorizationMiddleware } from "@/app/middleware/authorization.server";
 import { getDB, getFolders } from "@/lib/db";
 
 import { Folders } from "./components/folders";
@@ -10,7 +11,9 @@ import styles from "./styles.module.css";
 
 export { ErrorBoundary } from "../../components/error-boundary";
 
-export async function loader({ context }: LoaderFunctionArgs) {
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  await authorizationMiddleware(request, context.env);
+
   const db = getDB(context.env);
   const folders = await getFolders(db);
 

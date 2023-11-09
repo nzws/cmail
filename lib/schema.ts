@@ -25,7 +25,6 @@ export const mail = sqliteTable(
     folderId: text("folder_id")
       .references(() => folder.id)
       .notNull(),
-    messageId: text("message_id").notNull(),
     headers: text("headers", { mode: "json" })
       .$type<Record<string, string>>()
       .notNull(),

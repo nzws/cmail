@@ -8,9 +8,12 @@ import {
 } from "@radix-ui/themes";
 import { SearchIcon } from "lucide-react";
 
+import { useProfile } from "./hooks/use-profile";
 import styles from "./styles.module.css";
 
 export function Header() {
+  const { avatarUrl } = useProfile();
+
   return (
     <div className={styles.container}>
       <Box className={styles.brand_container}>
@@ -27,12 +30,7 @@ export function Header() {
       </Box>
 
       <Box className={styles.avatar_container}>
-        <Avatar
-          radius="full"
-          src="https://github.com/nzws.png"
-          size="3"
-          fallback="user"
-        />
+        <Avatar radius="full" src={avatarUrl} size="3" fallback="user" />
       </Box>
     </div>
   );

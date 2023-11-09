@@ -10,6 +10,7 @@ import {
   mailEnvelope,
   SystemFolderType,
 } from "@/lib/schema";
+import { Env } from "@/remix.env";
 
 const parser = new PostalMime();
 
@@ -30,10 +31,7 @@ const handleAddress = (
   }));
 };
 
-export const email: EmailExportedHandler<NodeJS.ProcessEnv> = async (
-  message,
-  env,
-) => {
+export const email: EmailExportedHandler<Env> = async (message, env) => {
   const db = getDB(env);
   const arrayBuffer = await new Response(message.raw).arrayBuffer();
   const data = await parser.parse(arrayBuffer);
@@ -65,46 +63,50 @@ export const email: EmailExportedHandler<NodeJS.ProcessEnv> = async (
     throw new Error("content is not found");
   }
 
-  await db.insert(mail).values({
-    id,
-    from: message.from,
-    to: message.to,
-    subject: data.subject,
-    content: content,
-    isHtml: !!data.html,
-    messageId: data.messageId,
-    headers,
-    folderId,
-  });
-
-  await db
-    .insert(mailEnvelope)
-    .values([
-      ...handleAddress(id, EnvelopeType.From, [data.from]),
-      ...handleAddress(id, EnvelopeType.To, data.to),
-      ...handleAddress(id, EnvelopeType.Cc, data.cc),
-      ...handleAddress(id, EnvelopeType.Bcc, data.bcc),
-      ...handleAddress(id, EnvelopeType.ReplyTo, data.replyTo),
-    ]);
+  let batcher: Parameters<typeof db.batch>[0] = [
+    db.insert(mail).values({
+      id,
+      from: message.from,
+      to: message.to,
+      subject: data.subject,
+      content: content,
+      isHtml: !!data.html,
+      headers,
+      folderId,
+    }),
+    db
+      .insert(mailEnvelope)
+      .values([
+        ...handleAddress(id, EnvelopeType.From, [data.from]),
+        ...handleAddress(id, EnvelopeType.To, data.to),
+        ...handleAddress(id, EnvelopeType.Cc, data.cc),
+        ...handleAddress(id, EnvelopeType.Bcc, data.bcc),
+        ...handleAddress(id, EnvelopeType.ReplyTo, data.replyTo),
+      ]),
+  ];
 
   if (data.attachments.length > 0) {
-    await db.insert(mailAttachment).values(
-      data.attachments.map((attachment) => ({
-        mailId: id,
-        filename: attachment.filename,
-        mimeType: attachment.mimeType,
-        disposition: attachment.disposition as MailAttachmentDisposition | null,
-      })),
-    );
+    batcher = [
+      ...batcher,
+      db.insert(mailAttachment).values(
+        data.attachments.map((attachment) => ({
+          mailId: id,
+          filename: attachment.filename,
+          mimeType: attachment.mimeType,
+          disposition:
+            attachment.disposition as MailAttachmentDisposition | null,
+        })),
+      ),
+    ];
   }
+
+  await db.batch(batcher);
 
   await Promise.all(
     data.attachments.map((attachment) => {
-      const content = attachment.content as unknown as ArrayBuffer;
-
       return env.BUCKET.put(
         r2MailAttachmentKey(id, attachment.filename),
-        content,
+        attachment.content,
       );
     }),
   );

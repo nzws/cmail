@@ -38,7 +38,7 @@ export function MailsPresentational({ mails, folder }: Props) {
 
       {(folder?.system === SystemFolderType.Spam ||
         folder?.system === SystemFolderType.Trash) && (
-        <CalloutRoot>
+        <CalloutRoot className={styles.callout} color="iris">
           <CalloutText>
             Emails in this folder will be deleted after 30 days.
           </CalloutText>

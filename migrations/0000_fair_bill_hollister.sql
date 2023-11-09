@@ -23,7 +23,6 @@ CREATE TABLE `mail` (
 	`content` text NOT NULL,
 	`is_html` integer,
 	`folder_id` text NOT NULL,
-	`message_id` text NOT NULL,
 	`headers` text NOT NULL,
 	FOREIGN KEY (`folder_id`) REFERENCES `folder`(`id`) ON UPDATE no action ON DELETE no action
 );
