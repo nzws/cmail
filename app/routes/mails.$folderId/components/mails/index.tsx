@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  CalloutRoot,
-  CalloutText,
-  Flex,
-  Heading,
-  Text,
-} from "@radix-ui/themes";
+import { Box, Button, Flex, Heading, Text } from "@radix-ui/themes";
 import { SerializeFrom } from "@remix-run/cloudflare";
 import { Link, useParams } from "@remix-run/react";
 import { formatDistanceToNow } from "date-fns";
@@ -15,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 
 import { type Folder, type Mail, SystemFolderType } from "@/lib/schema";
 
+import { CalloutAutoClean } from "./callout-auto-clean";
 import styles from "./styles.module.css";
 
 interface Props {
@@ -37,13 +30,7 @@ export function MailsPresentational({ mails, folder }: Props) {
       </Box>
 
       {(folder?.system === SystemFolderType.Spam ||
-        folder?.system === SystemFolderType.Trash) && (
-        <CalloutRoot className={styles.callout} color="iris">
-          <CalloutText>
-            Emails in this folder will be deleted after 30 days.
-          </CalloutText>
-        </CalloutRoot>
-      )}
+        folder?.system === SystemFolderType.Trash) && <CalloutAutoClean />}
 
       {mails?.map((mail) => (
         <Button

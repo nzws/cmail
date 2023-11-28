@@ -35,7 +35,6 @@ export async function loader({ params, context, request }: LoaderFunctionArgs) {
             margin: 0;
             padding: 0;
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-            overflow-y: hidden;
         }
     </style>
   </head>
